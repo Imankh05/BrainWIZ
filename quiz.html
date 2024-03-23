@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <style>
+        body {
+        display: flex;
+        padding: 0px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        min-height: 98vh;
+        background: url('background.jpg') center/cover no-repeat;
+        font-family: Arial, Helvetica, sans-serif;
+        overflow: hidden;
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .question {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .option {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+            border: 1px solid #dc9b70;
+            border-radius: 5px;
+        }
+
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .correct {
+            background-color: #1dc31d;
+        }
+
+        .incorrect {
+            background-color: #b62a2a;
+        }
+
+        .correct-answer {
+            color: #b2ffb2;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .next-button {
+            display: none;
+            margin: 20px auto;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #dc9b70;
+            color: #000000;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .submit-button{
+            cursor: pointer;
+            margin-top: 5%;
+            background-color: #dc9b70;
+            color: rgb(0, 0, 0);
+            border-radius: 5px;
+            font-size: 10px;
+            border:rgb(255, 255, 255);
+            box-shadow: 1000px;
+        }
+
+        .logo-container {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        }
+
+        .logo-container img{
+        max-width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="quiz-container">
+        <h1>Quiz Game</h1>
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <button class="submit-button" onclick="checkAnswer()">Submit Answer</button>
+        <div class="result" id="result"></div>
+        <button class="next-button" onclick="nextQuestion()">Next Question</button>
+    </div>
+    
+    <script>
+        const questions = [
+            "Which is the largest country in the world?",
+            "What is the colour of an emerald?",
+            "What is the fastest land animal?",
+            "How many planets are there in our solar system?",
+            "What is the largest planet in our solar system?",
+            "What does a thermometer measure?",
+            "Which is the largest ocean in the world?",
+            "How much of Earth’s surface is covered by ocean?",
+            "What temperature does water boil at?",
+            "Which is the biggest desert in the world?"
+        ];
+
+        const options = [
+            ["A. Canada", "B. Russia", "C. India", "D. China"],
+            ["A. red", "B. purple", "C. blue", "D. green"],
+            ["A. cheetah", "B. panther", "C. sailfish", "D. lion"],
+            ["A. 12", "B. 7", "C. 8", "D. 10"],
+            ["A. Venus", "B. Mars", "C. Jupiter", "D. Saturn"],
+            ["A. weight", "B. temperature", "C. height", "D. pressure"],
+            ["A. Atlantic Ocean", "B. Pacific Ocean", "C. Indian Ocean", "D. Arctic Ocean"],
+            ["A. 50%", "B. 97%", "C. 80%", "D. 71%"],
+            ["A. 98º", "B. 100º", "C. 101º", "D.0º"],
+            ["A. Arabian Desert", "B. Gobi Desert", "C. Sahara desert", "D. Patagonian Desert"]
+        ];
+
+        const answers = ["B", "D", "A", "C", "C", "B", "B", "D", "B", "C"];
+
+        let questionIndex = 0;
+        let userAnswer = null;
+        let score = 0;
+
+        function displayQuestion() {
+            document.getElementById('question').innerText = questions[questionIndex];
+
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+
+            options[questionIndex].forEach((option) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                optionElement.innerText = option;
+                optionElement.onclick = () => selectAnswer(option[0]);
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+
+        function selectAnswer(answer) {
+            userAnswer = answer;
+        }
+
+        function checkAnswer() {
+            if (userAnswer) {
+                const correctAnswer = answers[questionIndex];
+                const optionsContainer = document.getElementById('options');
+                const optionsElements = optionsContainer.getElementsByClassName('option');
+
+                for (let i = 0; i < optionsElements.length; i++) {
+                    if (optionsElements[i].innerText.startsWith(userAnswer) && userAnswer === correctAnswer) {
+                        optionsElements[i].classList.add('correct');
+                    } else if (optionsElements[i].innerText.startsWith(userAnswer)) {
+                        optionsElements[i].classList.add('incorrect');
+                        displayCorrectAnswer(correctAnswer);
+                    } else if (optionsElements[i].classList.contains('correct')) {
+                        optionsElements[i].classList.remove('correct');
+                    }
+                }
+
+                showNextButton();
+            } else {
+                alert('Please select an answer before submitting.');
+            }
+        }
+
+        function displayCorrectAnswer(correctAnswer) {
+            const resultElement = document.getElementById('result');
+            const correctAnswerElement = document.createElement('p');
+            correctAnswerElement.classList.add('correct-answer');
+            correctAnswerElement.innerHTML = `Correct Answer is ${correctAnswer}`;
+            resultElement.appendChild(correctAnswerElement);
+        }
+
+        function showNextButton() {
+            const nextButton = document.querySelector('.next-button');
+            nextButton.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            hideNextButton();
+            questionIndex++;
+
+            if (questionIndex < questions.length) {
+                resetQuizState();
+                displayQuestion();
+            } else {
+                displayResult();
+            }
+        }
+
+        function resetQuizState() {
+            userAnswer = null;
+
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = '';
+
+            const optionsElements = document.getElementsByClassName('option');
+            for (let i = 0; i < optionsElements.length; i++) {
+                optionsElements[i].classList.remove('correct', 'incorrect');
+            }
+        }
+
+        function hideNextButton() {
+            const nextButton = document.querySelector('.next-button');
+            nextButton.style.display = 'none';
+        }
+
+        function displayResult() {
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = `Your score is: ${Math.round(score / questions.length * 100)}%`;
+        }
+
+        displayQuestion();
+    </script>
+    <div class="logo-container">
+        <a href="contents.html"><img src="wiz.jpg" alt="BrainWIZ Logo"></a>
+    </div>
+
+</body>
+</html>

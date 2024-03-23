@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainWizz!</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="wordList.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="game-modal">
+        <div class="content">
+            <img src="lost.gif" alt="gif">
+            <h4>Game Over!</h4>
+            <p><b></b></p>
+            <br><p>(click on the word for definition)</p></br>
+            <button class="play-again">Play Again</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="hangman-box">
+            Welcome USER! - <a href="index.html">Logout</a><br><br>
+            <img src="hangman-0.svg" alt="hangman-img">
+            <h1>Hangman</h1>
+        </div>
+        
+        <div class="game-box">
+            <div class="game-box">
+                <ul class="word-display"></ul>
+                <h4 class="hint-text">
+                    Hint:
+                    <b></b>
+                </h4>
+                
+                <div class="timer">
+                    Time remaining:  
+                    <b><span id="timerSpan">30</span></b>
+                </div>
+    
+                <h4 class="guesses-text">
+                    Incorrect guesses:
+                    <b>0/6</b>
+                </h4>
+    
+                <div class="keyboard"></div>
+        </div>
+    </div>
+    <div class="logo-container">
+        <a href="contents.html"><img src="wiz.jpg" alt="BrainWIZ Logo"></a>
+    </div>
+</body>
+</html>

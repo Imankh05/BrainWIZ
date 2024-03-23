@@ -1,0 +1,71 @@
+<html>
+<head>
+    <title>Login And Registration Form</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="hero">
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+            <form id="login" class="input-group" onsubmit="return validateForm()">
+                <input type="text" class="input-field" id="user" placeholder="User Id" required> 
+                <input type="text" class="input-field" id="pass" placeholder="Enter Password"required>
+                <input type="checkbox" class="chech-box"><span>Remember Password</span>
+                <button type="submit" class="submit-btn">Log in</button>
+            </form>
+            <form id="register" class="input-group">
+                <input type="text" class="input-field" placeholder="User Id" required> 
+                <input type="email" class="input-field" placeholder="Email Id" required> 
+                <input type="text" class="input-field" placeholder="Enter Password" required>
+                <input type="checkbox" class="chech-box"><span>I agree to the terms conditions</span>
+                <button type="submit" class="submit-btn">Log in</button>
+            </form>
+        </div>
+
+            </div>
+
+            <script>
+                var x = document.getElementById("login");
+                var y = document.getElementById("register");
+                var z = document.getElementById("btn");
+
+                function register(){
+                    x.style.left ="-400px";
+                    y.style.left = "50px";
+                    z.style.left = "110px";
+                }
+                function login(){
+                    x.style.left ="50px";
+                    y.style.left = "450px";
+                    z.style.left = "0px";
+                }
+            </script>
+    </div>    
+    <script>
+        function validateForm() {
+            var username = document.getElementById("user").value;
+            var password = document.getElementById("pass").value;
+
+            var validCredentials = [
+            { username: "iman", password: "user1" },
+            { username: "john", password: "pass" },
+            
+        ];
+
+        for (var i = 0; i < validCredentials.length; i++) {
+            if (username === validCredentials[i].username && password === validCredentials[i].password) {
+                window.location.href = "contents.html";
+                return false;
+            }
+        }
+
+        alert("Incorrect username or password. Please try again.");
+        return false;
+    }
+    </script>
+</body>
+</html>

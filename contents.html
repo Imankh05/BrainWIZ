@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <style>
+        body {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: url('background.jpg') center/cover no-repeat;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .contents-container {
+            text-align: center;
+            padding: 50px;
+            border-radius: 8px;
+            position: relative;
+            color: white;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .main-button {
+            margin-top: 0px;
+            max-width: 200px;
+            padding: 1%;
+            margin-right: 1px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+        }
+        .logo-container img{
+            max-width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contents-container" id="form">
+        <a href="index.html">Logout</a><br><br>
+        <h2>Welcome to BrainWIZ</h2>
+        <h4>Choose a game:</h4>
+        <div class="button-container">
+            <a href="main.html"><img src="hang.jpg" alt="Hangman Game" class="main-button"></a>
+            <a href="quiz.html"><img src="quiz.jpg" alt="Quiz Game" class="main-button"></a>
+        </div>
+    </div>
+    <div class="logo-container">
+        <a href="contents.html"><img src="wiz.jpg" alt="BrainWIZ Logo"></a>
+    </div>
+</body>
+</html>
